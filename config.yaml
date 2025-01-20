@@ -1,0 +1,22 @@
+- name: Configurar servidores
+  hosts: empleados
+  become: true
+  tasks:
+    - name: Actualizar el sistema
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name: Instalar herramientas esenciales
+      apt:
+        name:
+          - curl
+          - git
+          - vim
+        state: present
+
+    - name: Configurar el firewall
+      ufw:
+        rule: allow
+        name: OpenSSH
+        state: enabled
